@@ -10,18 +10,15 @@ namespace ATM_Machine.Controllers
     {
 
         private readonly ATM _atm;
-        private readonly ILogger<ATMController> _logger;
 
-        public ATMController(ATM atm, ILogger<ATMController> logger)
+        public ATMController(ATM atm)
         {
             _atm = atm;
-            _logger = logger;
         }
 
         [HttpGet]
         public IActionResult OnGet()
         {
-            //_logger.LogInformation("Get activated");
             if (_atm is not null)
                 return Ok(new
                 {
@@ -41,7 +38,7 @@ namespace ATM_Machine.Controllers
                 return BadRequest("ATM is not available");
 
             var result = _atm.Withdraw(amount);
-            if (result.success)
+            if (result.succeeded)
             { 
                 return Ok(new 
                 {
@@ -68,6 +65,7 @@ namespace ATM_Machine.Controllers
             _atm.Reset();
             if (_atm.AmountLeft == 4000)
                 return Ok();
+
             return BadRequest("Could not reset the inventory of the ATM");
 
         }

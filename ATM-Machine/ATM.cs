@@ -32,7 +32,7 @@ namespace ATM_Machine
             Bills = bills;
         }
 
-        public List<(bool success, List<Bill> billsWithdrawn)> Withdraw(params int[] amounts)
+        public List<(bool succeeded, List<Bill> billsWithdrawn)> Withdraw(params int[] amounts)
         {
             var results = new List<(bool success, List<Bill> billsWithdrawn)>();
             for (int i = 0; i < amounts.Length; i++)
@@ -45,7 +45,7 @@ namespace ATM_Machine
 
 
 
-        public (bool success, List<Bill> billsWithdrawn) Withdraw(int amount)
+        public (bool succeeded, List<Bill> billsWithdrawn) Withdraw(int amount)
         {
             if (amount % 100 is not 0 || AmountLeft < amount)
                 return (false, null);
@@ -55,7 +55,7 @@ namespace ATM_Machine
 
 
 
-        private (bool success, List<Bill> billsWithdrawn) TryWithdraw(int amountToWithdraw)
+        private (bool succeeded, List<Bill> billsWithdrawn) TryWithdraw(int amountToWithdraw)
         {
             var withdrawnBills = new List<Bill>();
 

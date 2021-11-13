@@ -10,18 +10,43 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ATM_Tests
 {
-    public class UnitTest1
+    public class ATMUnitTests
     {
         private readonly ATM _atm = new();
 
         [Fact] 
-        public void Withdraw_Should_Empty_ATM_Bills()
+        public void Withdrawals_Should_Empty_ATM_Bills()
         {
             int startAmount = _atm.AmountLeft;
             var results = _atm.Withdraw(1500,700,400,1100,1000,700,300);
             var withdrawn = results.Where(x => x.billsWithdrawn is not null).SelectMany(x => x.billsWithdrawn).Sum(x => x.Value);
             Assert.Equal(0, _atm.AmountLeft);
             Assert.Equal(startAmount, withdrawn);
+
+        }
+
+        [Fact]
+        public void Third_WithdrawaL_Should_Not_Succeed()
+        {
+            var withdrawals = _atm.Withdraw(1500, 700, 400);
+            var result = withdrawals[2];
+            Assert.False(result.succeeded);
+
+        }
+        [Fact]
+        public void Fifth_WithdrawaL_Should_Not_Succeed()
+        {
+            var withdrawals = _atm.Withdraw(1500,700,400,1100,1000);
+            var result = withdrawals[4];
+            Assert.False(result.succeeded);
+
+        }
+        [Fact]
+        public void Seventh_WithdrawaL_Should_Not_Succeed()
+        {
+            var withdrawals = _atm.Withdraw(1500, 700, 400, 1100, 1000, 700, 300);
+            var result = withdrawals[6];
+            Assert.False(result.succeeded);
 
         }
 
@@ -36,7 +61,7 @@ namespace ATM_Tests
             var atm = new ATM(bills);
 
             var result = atm.Withdraw(100);
-            Assert.False(result.success);
+            Assert.False(result.succeeded);
             Assert.Equal(1500, atm.AmountLeft);
 
 
@@ -47,7 +72,7 @@ namespace ATM_Tests
         {
             int startAmount = _atm.AmountLeft;
             var result = _atm.Withdraw(10);
-            Assert.False(result.success);
+            Assert.False(result.succeeded);
             Assert.Equal(startAmount, _atm.AmountLeft);
         }
 
