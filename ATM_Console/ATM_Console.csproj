@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ATM-Machine\ATM-Machine.csproj" />
+    <ProjectReference Include="..\ATM-Machine\ATM-MachineWeb.csproj" />
   </ItemGroup>
 
 </Project>

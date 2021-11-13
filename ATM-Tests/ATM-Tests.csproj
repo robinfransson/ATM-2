@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ATM-Machine\ATM-Machine.csproj" />
+    <ProjectReference Include="..\ATM-Machine\ATM-MachineWeb.csproj" />
     <ProjectReference Include="..\ATM_Console\ATM_Console.csproj" />
   </ItemGroup>
 

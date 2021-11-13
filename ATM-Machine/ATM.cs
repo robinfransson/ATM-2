@@ -47,7 +47,7 @@ namespace ATM_Machine
 
         public (bool succeeded, List<Bill> billsWithdrawn) Withdraw(int amount)
         {
-            if (amount % 100 is not 0 || AmountLeft < amount)
+            if (amount % 100 is not 0 || AmountLeft < amount || amount is 0)
                 return (false, null);
 
             return TryWithdraw(amount);
