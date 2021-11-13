@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATM-Tests", "ATM-Tests\ATM-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ATM-Machine", "ATM-Machine\ATM-Machine.csproj", "{110B53B7-DC39-4535-AC82-DDBEB5A99963}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATM_Console", "ATM_Console\ATM_Console.csproj", "{EA47743D-491B-4BD7-AE9B-B557C4571003}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{110B53B7-DC39-4535-AC82-DDBEB5A99963}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{110B53B7-DC39-4535-AC82-DDBEB5A99963}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{110B53B7-DC39-4535-AC82-DDBEB5A99963}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA47743D-491B-4BD7-AE9B-B557C4571003}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA47743D-491B-4BD7-AE9B-B557C4571003}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA47743D-491B-4BD7-AE9B-B557C4571003}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA47743D-491B-4BD7-AE9B-B557C4571003}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

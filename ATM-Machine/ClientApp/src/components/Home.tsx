@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Col, Descriptions, Form, Input, message, Row, Space, Tooltip, Typography } from 'antd';
+import { Button, Card, Col, Descriptions, Form, Input, message, Row, Tooltip, Typography } from 'antd';
 import React from 'react';
 import { AtmContent, BillInfo } from '../Interfaces/ReturnTypes'
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -25,12 +25,11 @@ const withdrawMoney = async (amount: number) => {
 }
 
 const resetAtm = async () => {
-    const response = await fetch('/api/ATM', {
+    const response = await fetch('/api/ATM/reset', {
         method: 'GET'
     })
     if (response.ok) {
-        let load = await initialLoad();
-        return load;
+        return await initialLoad();
     }
     else {
         message.error(await response.json());
@@ -52,7 +51,6 @@ const initialLoad = async () => {
     }
     else {
         //message.error(response.statusText);
-        console.log(await response.json());
         return undefined;
     }
 }
@@ -73,12 +71,18 @@ export const Home = () => {
     React.useEffect(() => {
         const onload = async () => {
             let result = await initialLoad();
-            console.log(result);
             setAtmContents(result);
         }
         onload();
     }, [])
-    const reset = () => {
+    const reset = async () => {
+        var result = await resetAtm();
+        if (result) {
+            setAtmContents(result);
+            message.success("Successfully reset the ATM.", 3);
+        }
+
+
 
     }
 
@@ -92,7 +96,6 @@ export const Home = () => {
             setAtmContents(result);
             message.success(`Successfully withdrew $${withdrawalAmount} from the ATM.`, 3)
             formRef.current.setFieldsValue({ withdrawalAmount: "" })
-            console.log(formRef.current)
         }
         else if (!result && withdrawalAmount) {
             formRef.current.setFieldsValue({ withdrawalAmount: "" })
@@ -110,7 +113,7 @@ export const Home = () => {
             <Row>
                 <Col span={24} style={{ justifyContent: "center", alignContent: "center", display: "inline-flex" }}>
                     <Card title="ATM Machine" style={{ width: 300 }}>
-                        {atmContents?.contents.map((bill: BillInfo, index: number) => <Typography.Paragraph style={{ textDecoration: "" }}>${bill.value} x {bill.amount}</Typography.Paragraph>)}
+                        {atmContents?.contents.map((bill: BillInfo, index: number) => <Typography.Paragraph key={index} style={{ textDecoration: "" }}>${bill.value} x {bill.amount}</Typography.Paragraph>)}
                         <Form form={form} ref={formRef}
                             onKeyDown={((e: any) => {
                                 if (e.key == "Enter")
@@ -118,10 +121,10 @@ export const Home = () => {
                                 else if (invalidChars.includes(e.key))
                                     e.preventDefault()
                             })}>
-                            <Form.Item name="withdrawalAmount" label={"Amount to withdraw:" + <Tooltip title="Press enter to withdraw"><InfoCircleOutlined /></Tooltip>} labelCol={{ span: 24 }} style={{ borderTopWidth: '3px', borderTopColor: 'black', borderTopStyle: 'solid' }}>
-                                <Input type="number" min={0}></Input>
+                            <Form.Item name="withdrawalAmount" label={() => <>Amount to withdraw: <Tooltip title="Press enter to withdraw"></Tooltip></>} labelCol={{ span: 24 }} style={{ borderTopWidth: '3px', borderTopColor: 'black', borderTopStyle: 'solid' }}>
+                                <Input type="number" min={0} key="input-number"></Input>
                             </Form.Item>
-                            <Button onClick={reset}>Reset</Button>
+                            <Button key="reset-button" onClick={reset}>Reset</Button>
                         </Form>
                     </Card>
                 </Col>

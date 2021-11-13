@@ -63,17 +63,18 @@ namespace ATM_Machine
                 return (false, null);
 
             var thousandsToWithdraw = (int)(amountToWithdraw / 1000);
-            amountToWithdraw -= Remove(1000, thousandsToWithdraw, withdrawnBills);
+            if(thousandsToWithdraw > 0)
+                amountToWithdraw -= Remove(1000, thousandsToWithdraw, withdrawnBills);
 
 
             var fiveHundredsToWithdraw = (int)(amountToWithdraw / 500);
-
-            amountToWithdraw -= Remove(500, fiveHundredsToWithdraw, withdrawnBills);
+            if (fiveHundredsToWithdraw > 0)
+                amountToWithdraw -= Remove(500, fiveHundredsToWithdraw, withdrawnBills);
 
 
             var hundredsToWithdraw = (int)(amountToWithdraw / 100);
-
-            amountToWithdraw -= Remove(100, hundredsToWithdraw, withdrawnBills);
+            if (hundredsToWithdraw > 0)
+                amountToWithdraw -= Remove(100, hundredsToWithdraw, withdrawnBills);
 
 
             if (amountToWithdraw == 0)
@@ -86,10 +87,7 @@ namespace ATM_Machine
 
         private int Remove(int value, int amount, List<Bill> withdrawnBills)
         {
-            var billsToRemove = new List<Bill>();
-
-            if(Bills.Count(x => x.Value == value) >= amount)
-                billsToRemove = Bills.Where(x => x.Value == value).Take(amount).ToList();
+            var billsToRemove = Bills.Where(x => x.Value == value).Take(amount).ToList();
 
             if (billsToRemove.Any())
             {

@@ -59,8 +59,8 @@ namespace ATM_Machine.Controllers
         }
 
         [HttpGet]
-        [Route("/reset")]
-        public IActionResult OnPostReset()
+        [Route("reset")]
+        public IActionResult OnGetResetATM()
         {
             _atm.Reset();
             if (_atm.AmountLeft == 4000)

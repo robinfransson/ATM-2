@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using Xunit.Extensions.Ordering;
 using ATM_Machine.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using ATM_Console;
 
 namespace ATM_Tests
 {
@@ -82,6 +83,22 @@ namespace ATM_Tests
             var controller = new ATMController(_atm);
             var result = controller.OnPost(100);
             Assert.IsType<OkObjectResult>(result);
+        }
+
+        [Fact]
+        public void Input_Not_Integer_Should_Return_False()
+        {
+            var atmMachine = new ATMMachine();
+            var result = atmMachine.ParseInput("asd");
+            Assert.False(result);
+        }
+        [Fact]
+        public void Valid_Amount_Should_Return_True()
+        {
+            var atmMachine = new ATMMachine();
+            var result = atmMachine.ParseInput("1000");
+            Assert.True(result);
+
         }
 
         [Fact]
