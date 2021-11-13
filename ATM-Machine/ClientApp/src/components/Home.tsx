@@ -1,4 +1,4 @@
-import { Button, Card, Col, Descriptions, Form, Input, message, Row, Tooltip, Typography } from 'antd';
+import { Button, Card, Col, Form, Input, message, Row, Tooltip, Typography } from 'antd';
 import React from 'react';
 import { AtmContent, BillInfo } from '../Interfaces/ReturnTypes'
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -72,6 +72,7 @@ export const Home = () => {
         const onload = async () => {
             let result = await initialLoad();
             setAtmContents(result);
+            formRef.current.setFieldsValue({ withdrawalAmount: "0" })
         }
         onload();
     }, [])
@@ -95,6 +96,7 @@ export const Home = () => {
         if (result) {
             setAtmContents(result);
             message.success(`Successfully withdrew $${withdrawalAmount} from the ATM.`, 3)
+
             formRef.current.setFieldsValue({ withdrawalAmount: "" })
         }
         else if (!result && withdrawalAmount) {
@@ -116,13 +118,15 @@ export const Home = () => {
                         {atmContents?.contents.map((bill: BillInfo, index: number) => <Typography.Paragraph key={index} style={{ textDecoration: "" }}>${bill.value} x {bill.amount}</Typography.Paragraph>)}
                         <Form form={form} ref={formRef}
                             onKeyDown={((e: any) => {
-                                if (e.key == "Enter")
+                                if (e.key === "Enter")
                                     submit()
                                 else if (invalidChars.includes(e.key))
                                     e.preventDefault()
                             })}>
-                            <Form.Item name="withdrawalAmount" label={() => <>Amount to withdraw: <Tooltip title="Press enter to withdraw"></Tooltip></>} labelCol={{ span: 24 }} style={{ borderTopWidth: '3px', borderTopColor: 'black', borderTopStyle: 'solid' }}>
-                                <Input type="number" min={0} key="input-number"></Input>
+                            <Form.Item name="withdrawalAmount"
+                                label={<>Amount to withdraw: <Tooltip title="Press enter to withdraw"><InfoCircleOutlined style={{ marginLeft: '3px' }} /></Tooltip></>}
+                                labelCol={{ span: 24 }} style={{ borderTopWidth: '3px', borderTopColor: 'black', borderTopStyle: 'solid' }}>
+                                <Input autoFocus={true} type="number" min={0} key="input-number"></Input>
                             </Form.Item>
                             <Button key="reset-button" onClick={reset}>Reset</Button>
                         </Form>

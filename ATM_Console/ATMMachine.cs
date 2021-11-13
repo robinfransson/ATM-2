@@ -19,15 +19,33 @@ namespace ATM_Console
 
         public void Start()
         {
-            bool quit = false;
             Console.WriteLine("Welcome to the ATM Machine!");
-            while (!quit)
+            while (true)
             {
+                if(_atm.AmountLeft == 0)
+                {
+                    Console.WriteLine("The ATM is empty, press R to reset or any other key to quit.");
+
+                    var choice = Console.ReadKey();
+                    if (choice.Key == ConsoleKey.R)
+                    {
+                        _atm.Reset();
+                        Console.Clear();
+                        continue;
+
+                    }
+                    else
+                    {
+                        break;
+                    }
+                        
+                }
                 Console.WriteLine("Current inventory of the ATM is: ");
                 Console.WriteLine(string.Join("\n", GetContents()));
                 Console.Write("Enter amount to withdraw or enter reset to reset the atm: ");
+
                 var input = Console.ReadLine();
-                if (input.Contains("reset", StringComparison.CurrentCultureIgnoreCase))
+                if (input.ToLower() == "reset")
                 {
                     _atm.Reset();
                     Console.WriteLine("Resetting the ATM..");
@@ -38,6 +56,7 @@ namespace ATM_Console
                         Console.WriteLine("Could not withdraw the specified amount, please try again:");
                         input = Console.ReadLine();
                     }
+
                 Thread.Sleep(3000);
                 Console.Clear();
             }

@@ -62,17 +62,17 @@ namespace ATM_Machine
             if (!Bills.Any())
                 return (false, null);
 
-            var thousandsToWithdraw = (int)(amountToWithdraw / 1000);
+            var thousandsToWithdraw = amountToWithdraw / 1000;
             if(thousandsToWithdraw > 0)
                 amountToWithdraw -= Remove(1000, thousandsToWithdraw, withdrawnBills);
 
 
-            var fiveHundredsToWithdraw = (int)(amountToWithdraw / 500);
+            var fiveHundredsToWithdraw = amountToWithdraw / 500;
             if (fiveHundredsToWithdraw > 0)
                 amountToWithdraw -= Remove(500, fiveHundredsToWithdraw, withdrawnBills);
 
 
-            var hundredsToWithdraw = (int)(amountToWithdraw / 100);
+            var hundredsToWithdraw = amountToWithdraw / 100;
             if (hundredsToWithdraw > 0)
                 amountToWithdraw -= Remove(100, hundredsToWithdraw, withdrawnBills);
 
