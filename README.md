@@ -14,7 +14,8 @@ To start the web project:
  
 
 You might need to install dev certificates for HTTPS to run the project, if so, run the command **dotnet dev-certs https --trust** in your terminal of choice.
-After you are done, you  can remove the dev certificates if you want by running the command **dotnet dev-certs https --clean**.
+
+After you are done, you can remove the dev certificates if you want by running the command **dotnet dev-certs https --clean**.
 
 To start the console project, navigate with your terminal to the **ATM_Console** folder and run the **dotnet run** command.
 
