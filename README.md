@@ -1,4 +1,4 @@
-# ATM-2
+# ATM Machine
 
 
  If you want to use your favorite IDE, just open the **ATM Machine.sln** file in the root of the Git repository, and then select which project to run.
